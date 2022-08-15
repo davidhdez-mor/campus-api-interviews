@@ -9,6 +9,7 @@ namespace InterviewAPI.Profiles
         public InterviewProfile()
         {
             CreateMap<Interview, InterviewReadDto>().ReverseMap();
+            CreateMap<InterviewWriteDto, Interview>();
         }
     }
 }

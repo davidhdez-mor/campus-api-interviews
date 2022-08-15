@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using InterviewAPI.Abstractions;
 using InterviewAPI.Context;
 using InterviewAPI.Repositories;
 using InterviewAPI.Repositories.Abstractions;
+using InterviewAPI.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -35,6 +37,7 @@ namespace InterviewAPI
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
+            services.AddScoped<IInterviewService, InterviewService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

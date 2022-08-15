@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using InterviewAPI.Context;
 using InterviewAPI.Repositories.Abstractions;
 
@@ -21,9 +22,9 @@ namespace InterviewAPI.Repositories
 
         private readonly InterviewContext _interviewContext;
         
-        public void Save()
+        public async Task Save()
         {
-            _interviewContext.SaveChanges();
+            await _interviewContext.SaveChangesAsync();
         }
 
         public RepositoryWrapper(InterviewContext interviewContext)

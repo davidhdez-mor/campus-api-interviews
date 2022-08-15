@@ -1,13 +1,10 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Transactions;
-using AutoMapper;
+using InterviewAPI.Abstractions;
 using InterviewAPI.DTOs;
 using InterviewAPI.Models;
-using InterviewAPI.Repositories;
-using InterviewAPI.Repositories.Abstractions;
+using InterviewAPI.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InterviewAPI.Controllers
@@ -16,47 +13,45 @@ namespace InterviewAPI.Controllers
     [Route("api/Interview")]
     public class InterviewController : ControllerBase
     {
+        private readonly IInterviewService _interviewService;
 
-        private readonly IRepositoryWrapper _repoWrapper;
-        private readonly IMapper _mapper;
-
-        public InterviewController(IRepositoryWrapper repoWrapper, IMapper mapper)
+        public InterviewController(IInterviewService interviewService)
         {
-            _repoWrapper = repoWrapper;
-            _mapper = mapper;
+            _interviewService = interviewService;
         }
-        
-        
+
         [HttpGet]
         public async Task<IActionResult> GetInterviews()
         {
-            var interviews = _repoWrapper.Interview.GetAll();
-            var allInterviews = _mapper.Map<List<InterviewReadDto>>(interviews);
-            return Ok(allInterviews);
+            var interviews = await _interviewService.GetInterviews();
+            return Ok(interviews);
         }
 
         [HttpGet("{id}")]
-        public async Task GetInterviewsById(int id)
+        public async Task<IActionResult> GetInterviewsById(int id)
         {
-            
+            var interview = await _interviewService.GetInterviewById(id);
+
+            return Ok(interview);
         }
 
         [HttpPost]
-        public async Task CreateInterview()
+        public async Task<IActionResult> CreateInterview(InterviewWriteDto interviewWriteDto)
         {
+            var interview = await _interviewService.CreateInterview(interviewWriteDto);
             
+            return Created(Request.Path, interview);
+            // return CreatedAtRoute(nameof(CreateInterview), interview);
         }
 
         [HttpPut("{id}")]
         public async Task UpdateInterview(int id)
         {
-            
         }
 
         [HttpDelete("{id}")]
         public async Task DeleteInterview(int id)
         {
-            
         }
     }
 }

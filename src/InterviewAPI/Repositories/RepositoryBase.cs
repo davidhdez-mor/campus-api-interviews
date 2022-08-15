@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 using InterviewAPI.Context;
+using InterviewAPI.Models;
 using InterviewAPI.Repositories.Abstractions;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,14 +19,14 @@ namespace InterviewAPI.Repositories
             InterviewContext = interviewContext;
         }
 
-        public virtual IEnumerable<T> GetAll()
+        public virtual async Task<List<T>> GetAll()
         {
-            return InterviewContext.Set<T>().AsNoTracking();
+            return await InterviewContext.Set<T>().AsNoTracking().ToListAsync();
         }
 
-        public virtual IEnumerable<T> GetByCondition(Expression<Func<T, bool>> expression)
+        public virtual async Task<List<T>> GetByCondition(Expression<Func<T, bool>> expression)
         {
-            return InterviewContext.Set<T>().Where(expression).AsNoTracking();
+            return await InterviewContext.Set<T>().Where(expression).AsNoTracking().ToListAsync();
         }
 
         public virtual void Create(T entity)
@@ -37,7 +39,7 @@ namespace InterviewAPI.Repositories
             InterviewContext.Set<T>().Update(entity);
         }
 
-        public void Delete(T entity)
+        public virtual void Delete(T entity)
         {
             InterviewContext.Set<T>().Remove(entity);
         }
