@@ -1,0 +1,110 @@
+{
+	"info": {
+		"_postman_id": "4ac5e265-9bdb-41a8-a22e-56e199d1c1b0",
+		"name": "InterviewersEndpoints",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22718758"
+	},
+	"item": [
+		{
+			"name": "GET Interviewers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/Interviewer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"Interviewer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Interviewer",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstname\": \"pedrito\",\n    \"lastname\": \"sola\",\n    \"email\": \"pedritosola@mail.com\",\n    \"birthday\": \"1965-07-08\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/Interviewer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"Interviewer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT Interviewer",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstname\": \"pedro\",\n    \"lastname\": \"sola\",\n    \"email\": \"pedritosola@mail.com\",\n    \"birthday\": \"1965-08-08\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/Interviewer/1002",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"Interviewer",
+						"1002"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Interviewers",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/Interviewer/1003",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"Interviewer",
+						"1003"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

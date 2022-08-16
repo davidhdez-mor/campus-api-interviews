@@ -1,0 +1,110 @@
+{
+	"info": {
+		"_postman_id": "765593f8-c1c5-4750-8be4-8fa6ff1ceb42",
+		"name": "IntervieweeEndpoints",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22718758"
+	},
+	"item": [
+		{
+			"name": "POST Interviewee",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstname\": \"pablito2\",\n    \"lastname\": \"pablon2\",\n    \"email\": \"pabl2222o@mail.com\",\n    \"birthday\": \"1998-05-25\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/Interviewee",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"Interviewee"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET interviewee",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/Interviewee",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"Interviewee"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT Interviewee",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstname\": \"Jose\",\n    \"lastname\": \"Orozco\",\n    \"email\": \"jorozco@mail.com\",\n    \"birthday\": \"1998-05-15\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/Interviewee/1003",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"Interviewee",
+						"1003"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Interviewee",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/Interviewee/1002",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"Interviewee",
+						"1002"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

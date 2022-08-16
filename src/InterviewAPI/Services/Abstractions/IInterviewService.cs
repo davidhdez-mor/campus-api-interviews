@@ -13,6 +13,6 @@ namespace InterviewAPI.Abstractions
 
         public Task<InterviewReadDto> UpdateInterview(InterviewWriteDto interviewWriteDto);
 
-        public Task DeleteInterview(InterviewReadDto interviewReadDto);
+        public Task<InterviewReadDto> DeleteInterview(int id);
     }
 }
