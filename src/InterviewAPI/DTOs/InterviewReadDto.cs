@@ -9,6 +9,6 @@ namespace InterviewAPI.DTOs
         public string Name { get; set; }
         public DateTime Appointment { get; set; }
         public IntervieweeReadDto Interviewee { get; set; }
-        public IEnumerable<InterviewerReadDto> Interviewers { get; set; }
+        public IEnumerable<InterviewersForInterviewsDto> Interviewers { get; set; }
     }
 }

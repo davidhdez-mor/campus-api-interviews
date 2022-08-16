@@ -6,6 +6,8 @@ namespace InterviewAPI.Repositories.Abstractions
     public interface IRepositoryWrapper
     {
         IInterviewRepository Interview { get; }
+        IIntervieweeRepository Interviewee { get; }
+        IInterviewerRepository Interviewer { get; }
         Task Save();
     }
 }

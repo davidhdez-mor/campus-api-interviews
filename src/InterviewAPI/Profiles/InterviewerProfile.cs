@@ -9,6 +9,9 @@ namespace InterviewAPI.Profiles
         public InterviewerProfile()
         {
             CreateMap<Interviewer, InterviewerReadDto>();
+            CreateMap<Interviewer, InterviewersForInterviewsDto>();
+            CreateMap<InterviewerWriteDto, Interviewer>();
+            CreateMap<InterviewerUpdateDto, Interviewer>();
         }
     }
 }

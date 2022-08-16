@@ -30,13 +30,20 @@ namespace InterviewAPI.Repositories
             return await InterviewContext.Set<Interview>()
                 .Include(t => t.Interviewee)
                 .Include(t => t.Interviewers)
-                .Where(expression).AsNoTracking()
+                .Where(expression)
+                .AsNoTracking()
                 .ToListAsync();
         }
 
         public override void Create(Interview entity)
         {
-            InterviewContext.Set<Interview>().Add(entity);
+            InterviewContext.Set<Interview>().Attach(entity);
+        }
+
+        public override void Update(Interview entity)
+        {
+            // InterviewContext.Entry(entity).State = EntityState.Modified;
+            InterviewContext.Set<Interview>().Update(entity);
         }
     }
 }

@@ -1,21 +1,15 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using InterviewAPI.Abstractions;
 using InterviewAPI.Context;
 using InterviewAPI.Repositories;
 using InterviewAPI.Repositories.Abstractions;
 using InterviewAPI.Services;
+using InterviewAPI.Services.Abstractions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace InterviewAPI
 {
@@ -36,8 +30,10 @@ namespace InterviewAPI
                 options.UseSqlServer(Configuration.GetConnectionString("SqlServer")));
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
             services.AddScoped<IInterviewService, InterviewService>();
+            services.AddScoped<IIntervieweeService, IntervieweeService>();
+            services.AddScoped<IInterviewerService, InterviewerService>();
+            services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

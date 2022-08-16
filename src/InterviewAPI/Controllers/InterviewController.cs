@@ -1,10 +1,7 @@
-using System.Collections.Generic;
-using System.Linq;
+using System;
 using System.Threading.Tasks;
-using InterviewAPI.Abstractions;
 using InterviewAPI.DTOs;
-using InterviewAPI.Models;
-using InterviewAPI.Services;
+using InterviewAPI.Services.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InterviewAPI.Controllers
@@ -32,6 +29,8 @@ namespace InterviewAPI.Controllers
         {
             var interview = await _interviewService.GetInterviewById(id);
 
+            if (interview is null)
+                return NotFound();
             return Ok(interview);
         }
 
@@ -45,13 +44,27 @@ namespace InterviewAPI.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task UpdateInterview(int id)
+        public async Task<IActionResult> UpdateInterview(int id, InterviewUpdateDto interviewUpdateDto)
         {
+            var interview = await _interviewService.UpdateInterview(id, interviewUpdateDto);
+            if (interview is null)
+                return NotFound();
+            return NoContent();
         }
 
         [HttpDelete("{id}")]
-        public async Task DeleteInterview(int id)
+        public async Task<IActionResult> DeleteInterview(int id)
         {
+            try
+            {
+                await _interviewService.DeleteInterview(id);
+                return NoContent();
+            }
+            catch (NullReferenceException ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
+        
     }
 }

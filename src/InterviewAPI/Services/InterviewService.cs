@@ -1,12 +1,12 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using InterviewAPI.Abstractions;
 using InterviewAPI.DTOs;
 using InterviewAPI.Models;
 using InterviewAPI.Repositories.Abstractions;
+using InterviewAPI.Services.Abstractions;
 
 namespace InterviewAPI.Services
 {
@@ -43,22 +43,78 @@ namespace InterviewAPI.Services
 
         public async Task<InterviewReadDto> CreateInterview(InterviewWriteDto interviewWriteDto)
         {
-            var interview = _mapper.Map<Interview>(interviewWriteDto); 
+            int intervieweeId = interviewWriteDto.IntervieweeId;
+            var interviewerIds = interviewWriteDto.InterviewerIds;
+
+            var interviewee = await _repoWrapper
+                .Interviewee
+                .GetByCondition(i => i.Id.Equals(intervieweeId));
+            
+            var interviewers = await _repoWrapper
+                .Interviewer
+                .GetByCondition(i => interviewerIds.Contains(i.Id));
+            
+            Interview interview = new Interview()
+            {
+                Appointment = interviewWriteDto.Appointment,
+                Name = interviewWriteDto.Name,
+                Interviewee = interviewee.FirstOrDefault(),
+                Interviewers = interviewers
+            };
+            
             _repoWrapper.Interview.Create(interview);
             await _repoWrapper.Save();
+            
             var interviewReadDto = _mapper.Map<InterviewReadDto>(interview);
+            
             return interviewReadDto;
         }
 
-        public Task<InterviewReadDto> UpdateInterview(InterviewWriteDto interviewWriteDto)
+        public async Task<InterviewReadDto> UpdateInterview(int id, InterviewUpdateDto interviewUpdateDto)
         {
-            throw new System.NotImplementedException();
+            int intervieweeId = interviewUpdateDto.IntervieweeId;
+            var interviewerIds = interviewUpdateDto.InterviewerIds;
+
+            var interviewees = await _repoWrapper
+                .Interviewee
+                .GetByCondition(i => i.Id.Equals(intervieweeId));
+            
+            var interviewers = await _repoWrapper
+                .Interviewer
+                .GetByCondition(i => interviewerIds.Any(ii => i.Id.Equals(ii)));
+            
+            var interviews = await _repoWrapper.Interview
+                .GetByCondition(i => i.Id.Equals(id));
+
+            var interviewee = interviewees.FirstOrDefault();
+            var interview = interviews.FirstOrDefault();
+
+            if (interview is null)
+                return null;
+            
+            interview.Interviewee = interviewee;
+            interview.Interviewers = interviewers;
+            interview.Appointment = interviewUpdateDto.Appointment;
+            interview.Name = interviewUpdateDto.Name;
+            
+            // var interviewToUpdate = _mapper.Map<InterviewUpdateDto>(interview);
+
+            _repoWrapper.Interview.Update(interview);
+            await _repoWrapper.Save();
+            var interviewReadDto = _mapper.Map<InterviewReadDto>(interview);
+
+            return interviewReadDto;
         }
 
-        public Task DeleteInterview(InterviewReadDto interviewReadDto)
+        public async Task DeleteInterview(int id)
         {
-            
-            throw new System.NotImplementedException();
+            var interviews= await _repoWrapper.Interview
+                .GetByCondition(i => i.Id.Equals(id));
+            var interviewToDelete = interviews.FirstOrDefault();
+            if (interviewToDelete is null)
+                throw new NullReferenceException("No existe la entrevista");
+            _repoWrapper.Interview.Delete(interviewToDelete);
+            await _repoWrapper.Save();
         }
     }
 }
