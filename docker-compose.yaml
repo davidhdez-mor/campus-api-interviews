@@ -1,0 +1,16 @@
+version: "3.7"
+
+services:
+
+  sql:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: "sql-server"
+    ports:
+      - "14033:1433"
+    volumes:
+      - ./volumes/sql/data:/var/opt/mssql/data
+      - ./volumes/sql/data:/var/opt/mssql/log
+      - ./volumes/sql/data:/var/opt/mssql/secrets
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "MySuperSafePassword#"
