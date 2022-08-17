@@ -1,0 +1,13 @@
+using System.Collections.Generic;
+
+namespace InterviewAPI.Dtos.DTOs
+{
+    public class InterviewerReadDto
+    {
+        public int Id { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Email { get; set; }
+        public IEnumerable<InterviewForInterviewersDto> Interviews { get; set; }
+    }
+}

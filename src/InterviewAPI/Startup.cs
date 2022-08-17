@@ -1,9 +1,5 @@
 using System;
-using InterviewAPI.Context;
-using InterviewAPI.Repositories;
-using InterviewAPI.Repositories.Abstractions;
-using InterviewAPI.Services;
-using InterviewAPI.Services.Abstractions;
+using IoC;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -25,15 +21,7 @@ namespace InterviewAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
-            services.AddDbContext<InterviewContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("SqlServer")));
-
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            services.AddScoped<IInterviewService, InterviewService>();
-            services.AddScoped<IIntervieweeService, IntervieweeService>();
-            services.AddScoped<IInterviewerService, InterviewerService>();
-            services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
+            services.AddDependencies(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

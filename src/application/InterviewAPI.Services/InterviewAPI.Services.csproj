@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\InterviewAPI.Dtos\InterviewAPI.Dtos.csproj" />
+    <ProjectReference Include="..\..\infrastructure\InterviewAPI.Persistence\InterviewAPI.Persistence.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>InterviewAPI.Services</RootNamespace>
+  </PropertyGroup>
+
+</Project>
