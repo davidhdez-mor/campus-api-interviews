@@ -1,5 +1,6 @@
 using AutoMapper;
 using InterviewAPI.Dtos.DTOs;
+using InterviewAPI.Entities.Models;
 
 namespace InterviewAPI.Dtos.Profiles
 {
@@ -8,10 +9,10 @@ namespace InterviewAPI.Dtos.Profiles
         public InterviewProfile()
         {
             // Source - Target
-            CreateMap<InterviewAPI.Entities.Models.Interview, InterviewReadDto>().ReverseMap();
-            CreateMap<InterviewAPI.Entities.Models.Interview, InterviewForInterviewersDto>();
-            CreateMap<InterviewWriteDto, InterviewAPI.Entities.Models.Interview>();
-            CreateMap<InterviewUpdateDto, InterviewAPI.Entities.Models.Interview>();
+            CreateMap<Interview, InterviewReadDto>().ReverseMap();
+            CreateMap<Interview, InterviewForInterviewersDto>();
+            CreateMap<InterviewWriteDto, Interview>();
+            CreateMap<InterviewUpdateDto, Interview>();
         }
     }
 }
