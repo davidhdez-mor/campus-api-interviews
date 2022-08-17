@@ -46,7 +46,7 @@ namespace InterviewAPI.Services
             int intervieweeId = interviewWriteDto.IntervieweeId;
             var interviewerIds = interviewWriteDto.InterviewerIds;
 
-            var interviewee = await _repoWrapper
+            var interviewees = await _repoWrapper
                 .Interviewee
                 .GetByCondition(i => i.Id.Equals(intervieweeId));
             
@@ -58,7 +58,7 @@ namespace InterviewAPI.Services
             {
                 Appointment = interviewWriteDto.Appointment,
                 Name = interviewWriteDto.Name,
-                Interviewee = interviewee.FirstOrDefault(),
+                Interviewee = interviewees.FirstOrDefault(),
                 Interviewers = interviewers
             };
             
@@ -81,7 +81,7 @@ namespace InterviewAPI.Services
             
             var interviewers = await _repoWrapper
                 .Interviewer
-                .GetByCondition(i => interviewerIds.Any(ii => i.Id.Equals(ii)));
+                .GetByCondition(interviewer => interviewerIds.Any(iDs => interviewer.Id.Equals(iDs)));
             
             var interviews = await _repoWrapper.Interview
                 .GetByCondition(i => i.Id.Equals(id));
@@ -97,8 +97,6 @@ namespace InterviewAPI.Services
             interview.Appointment = interviewUpdateDto.Appointment;
             interview.Name = interviewUpdateDto.Name;
             
-            // var interviewToUpdate = _mapper.Map<InterviewUpdateDto>(interview);
-
             _repoWrapper.Interview.Update(interview);
             await _repoWrapper.Save();
             var interviewReadDto = _mapper.Map<InterviewReadDto>(interview);
