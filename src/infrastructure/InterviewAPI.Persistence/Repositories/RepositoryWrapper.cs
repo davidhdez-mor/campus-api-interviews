@@ -1,6 +1,8 @@
+using System;
 using System.Threading.Tasks;
 using InterviewAPI.Persistence.Context;
 using InterviewAPI.Persistence.Repositories.Abstractions;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace InterviewAPI.Persistence.Repositories
 {
@@ -8,24 +10,26 @@ namespace InterviewAPI.Persistence.Repositories
     public class RepositoryWrapper : IRepositoryWrapper
     {
         private readonly InterviewContext _interviewContext;
+        private readonly IServiceProvider _serviceProvider;
         
         private IInterviewRepository _interview;
         private IIntervieweeRepository _interviewee;
         private IInterviewerRepository _interviewer;
 
-        public IInterviewRepository Interview => _interview ??= new InterviewRepository(_interviewContext);
+        public IInterviewRepository Interview => _serviceProvider.GetService<IInterviewRepository>();
 
-        public IIntervieweeRepository Interviewee => _interviewee ??= new IntervieweeRepository(_interviewContext);
+        public IIntervieweeRepository Interviewee => _serviceProvider.GetService<IIntervieweeRepository>();
 
-        public IInterviewerRepository Interviewer => _interviewer ??= new InterviewerRepository(_interviewContext);
+        public IInterviewerRepository Interviewer => _serviceProvider.GetService<IInterviewerRepository>();
         
         public async Task Save()
         {
             await _interviewContext.SaveChangesAsync();
         }
 
-        public RepositoryWrapper(InterviewContext interviewContext)
+        public RepositoryWrapper(InterviewContext interviewContext, IServiceProvider serviceProvider)
         {
+            _serviceProvider = serviceProvider;
             _interviewContext = interviewContext;
         }
 

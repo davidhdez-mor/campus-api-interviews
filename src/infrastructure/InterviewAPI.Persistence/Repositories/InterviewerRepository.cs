@@ -27,7 +27,6 @@ namespace InterviewAPI.Persistence.Repositories
         public override async Task<List<Interviewer>> GetByCondition(Expression<Func<Interviewer, bool>> expression)
         {
             return await InterviewContext.Interviewers
-                .AsNoTracking()
                 .Include(i => i.Interviews)
                 .Where(expression)
                 .AsNoTracking()

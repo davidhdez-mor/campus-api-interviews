@@ -46,57 +46,44 @@ namespace InterviewAPI.Services.Services
             int intervieweeId = interviewWriteDto.IntervieweeId;
             var interviewerIds = interviewWriteDto.InterviewerIds;
 
-            var interviewees = await _repoWrapper
-                .Interviewee
-                .GetByCondition(i => i.Id.Equals(intervieweeId));
-            
-            var interviewers = await _repoWrapper
-                .Interviewer
-                .GetByCondition(i => interviewerIds.Contains(i.Id));
-            
+            var (interviewee, interviewers) = await GetRelatedEntities(intervieweeId, interviewerIds);
+
             Interview interview = new Interview()
             {
                 Appointment = interviewWriteDto.Appointment,
                 Name = interviewWriteDto.Name,
-                Interviewee = interviewees.FirstOrDefault(),
+                Interviewee = interviewee,
                 Interviewers = interviewers
             };
-            
+
             _repoWrapper.Interview.Create(interview);
             await _repoWrapper.Save();
-            
+
             var interviewReadDto = _mapper.Map<InterviewReadDto>(interview);
-            
+
             return interviewReadDto;
         }
 
         public async Task<InterviewReadDto> UpdateInterview(int id, InterviewUpdateDto interviewUpdateDto)
         {
-            int intervieweeId = interviewUpdateDto.IntervieweeId;
+            var intervieweeId = interviewUpdateDto.IntervieweeId;
             var interviewerIds = interviewUpdateDto.InterviewerIds;
 
-            var interviewees = await _repoWrapper
-                .Interviewee
-                .GetByCondition(i => i.Id.Equals(intervieweeId));
-            
-            var interviewers = await _repoWrapper
-                .Interviewer
-                .GetByCondition(interviewer => interviewerIds.Any(iDs => interviewer.Id.Equals(iDs)));
-            
+            var (interviewee, interviewers) = await GetRelatedEntities(intervieweeId, interviewerIds);
+
             var interviews = await _repoWrapper.Interview
                 .GetByCondition(i => i.Id.Equals(id));
 
-            var interviewee = interviewees.FirstOrDefault();
             var interview = interviews.FirstOrDefault();
 
             if (interview is null)
                 return null;
-            
+
             interview.Interviewee = interviewee;
             interview.Interviewers = interviewers;
             interview.Appointment = interviewUpdateDto.Appointment;
             interview.Name = interviewUpdateDto.Name;
-            
+
             _repoWrapper.Interview.Update(interview);
             await _repoWrapper.Save();
             var interviewReadDto = _mapper.Map<InterviewReadDto>(interview);
@@ -106,13 +93,27 @@ namespace InterviewAPI.Services.Services
 
         public async Task DeleteInterview(int id)
         {
-            var interviews= await _repoWrapper.Interview
+            var interviews = await _repoWrapper.Interview
                 .GetByCondition(i => i.Id.Equals(id));
             var interviewToDelete = interviews.FirstOrDefault();
             if (interviewToDelete is null)
                 throw new NullReferenceException("No existe la entrevista");
             _repoWrapper.Interview.Delete(interviewToDelete);
             await _repoWrapper.Save();
+        }
+
+        private async Task<(Interviewee, IEnumerable<Interviewer>)> GetRelatedEntities(int intervieweeId,
+            IEnumerable<int> interviewerIds)
+        {
+            var interviewees = await _repoWrapper
+                .Interviewee
+                .GetByCondition(interviewee => interviewee.Id.Equals(intervieweeId));
+
+            var interviewers = await _repoWrapper
+                .Interviewer
+                .GetByCondition(interviewer => interviewerIds.Any(iDs => interviewer.Id.Equals(iDs)));
+
+            return (interviewees.FirstOrDefault(), interviewers);
         }
     }
 }

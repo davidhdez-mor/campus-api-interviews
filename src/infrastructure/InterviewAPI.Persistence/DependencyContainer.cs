@@ -1,3 +1,4 @@
+using InterviewAPI.Entities.Models;
 using InterviewAPI.Persistence.Context;
 using InterviewAPI.Persistence.Repositories;
 using InterviewAPI.Persistence.Repositories.Abstractions;
@@ -14,6 +15,9 @@ namespace InterviewAPI.Persistence
             services.AddDbContext<InterviewContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("SqlServer"),
                     x => x.MigrationsAssembly(typeof(InterviewContext).Assembly.GetName().Name)));
+            services.AddScoped<IIntervieweeRepository, IntervieweeRepository>();
+            services.AddScoped<IInterviewerRepository, InterviewerRepository>();
+            services.AddScoped<IInterviewRepository, InterviewRepository>();
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
             return services;
         }

@@ -37,12 +37,23 @@ namespace InterviewAPI.Persistence.Repositories
 
         public override void Create(Interview entity)
         {
-            InterviewContext.Set<Interview>().Attach(entity);
+            InterviewContext.Entry(entity).State = EntityState.Added;
+            InterviewContext.Entry(entity.Interviewee).State = EntityState.Unchanged; 
+            foreach (var interviewer in entity.Interviewers)
+            {
+
+                InterviewContext.Entry(interviewer).State = EntityState.Unchanged;
+            }
+
+            // InterviewContext.Set<Interviewee>().Attach(entity.Interviewee);
+            // InterviewContext.Set<Interviewer>().AttachRange(entity.Interviewers);
         }
 
         public override void Update(Interview entity)
         {
+            // InterviewContext.Set<Interview>().Attach(entity);
             // InterviewContext.Entry(entity).State = EntityState.Modified;
+            
             InterviewContext.Set<Interview>().Update(entity);
         }
     }
