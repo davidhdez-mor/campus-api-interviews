@@ -12,9 +12,9 @@ namespace InterviewAPI.Persistence.Repositories
         private readonly InterviewContext _interviewContext;
         private readonly IServiceProvider _serviceProvider;
         
-        private IInterviewRepository _interview;
-        private IIntervieweeRepository _interviewee;
-        private IInterviewerRepository _interviewer;
+        // private IInterviewRepository _interview;
+        // private IIntervieweeRepository _interviewee;
+        // private IInterviewerRepository _interviewer;
 
         public IInterviewRepository Interview => _serviceProvider.GetService<IInterviewRepository>();
 

@@ -24,7 +24,7 @@ namespace InterviewAPI.Persistence.Repositories
                 .AsNoTracking()
                 .ToListAsync();
         }
-        
+
         public override async Task<List<Interview>> GetByCondition(Expression<Func<Interview, bool>> expression)
         {
             return await InterviewContext.Set<Interview>()
@@ -38,23 +38,21 @@ namespace InterviewAPI.Persistence.Repositories
         public override void Create(Interview entity)
         {
             InterviewContext.Entry(entity).State = EntityState.Added;
-            InterviewContext.Entry(entity.Interviewee).State = EntityState.Unchanged; 
-            foreach (var interviewer in entity.Interviewers)
-            {
-
-                InterviewContext.Entry(interviewer).State = EntityState.Unchanged;
-            }
-
-            // InterviewContext.Set<Interviewee>().Attach(entity.Interviewee);
-            // InterviewContext.Set<Interviewer>().AttachRange(entity.Interviewers);
+            InterviewContext.Entry(entity.Interviewee).State = EntityState.Unchanged;
+            entity.Interviewers.ForEach(interviewer =>
+                InterviewContext.Entry(interviewer).State = EntityState.Unchanged);
         }
 
         public override void Update(Interview entity)
         {
-            // InterviewContext.Set<Interview>().Attach(entity);
-            // InterviewContext.Entry(entity).State = EntityState.Modified;
-            
-            InterviewContext.Set<Interview>().Update(entity);
+            InterviewContext.Entry(entity).State = EntityState.Modified;
+            InterviewContext.Entry(entity.Interviewee).State = EntityState.Unchanged;
+
+            // Solo agrega entrevistadores pero no se pueden repetir
+            entity.Interviewers.ForEach(interviewer =>
+                InterviewContext.Entry(interviewer).State = EntityState.Modified);
+
+            // InterviewContext.Set<Interview>().Update(entity);
         }
     }
 }

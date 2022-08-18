@@ -102,7 +102,7 @@ namespace InterviewAPI.Services.Services
             await _repoWrapper.Save();
         }
 
-        private async Task<(Interviewee, IEnumerable<Interviewer>)> GetRelatedEntities(int intervieweeId,
+        private async Task<(Interviewee, List<Interviewer>)> GetRelatedEntities(int intervieweeId,
             IEnumerable<int> interviewerIds)
         {
             var interviewees = await _repoWrapper
