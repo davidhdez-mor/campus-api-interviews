@@ -53,7 +53,7 @@ namespace InterviewAPI.Services.Services
                 Appointment = interviewWriteDto.Appointment,
                 Name = interviewWriteDto.Name,
                 Interviewee = interviewee,
-                // InterviewerLink = interviewers
+                Interviewers = interviewers
             };
 
             _repoWrapper.Interview.Create(interview);
@@ -80,7 +80,7 @@ namespace InterviewAPI.Services.Services
                 return null;
 
             interview.Interviewee = interviewee;
-            // interview.Interviewers = interviewers;
+            interview.Interviewers = interviewers;
             interview.Appointment = interviewUpdateDto.Appointment;
             interview.Name = interviewUpdateDto.Name;
 

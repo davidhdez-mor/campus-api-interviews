@@ -16,8 +16,7 @@ namespace InterviewAPI.Persistence.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<InterviewInterviewer>()
-                .HasKey(x => new {x.Id});
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(InterviewContext).Assembly);
         }
     }
 }

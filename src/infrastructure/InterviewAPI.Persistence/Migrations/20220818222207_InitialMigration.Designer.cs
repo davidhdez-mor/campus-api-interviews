@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InterviewAPI.Persistence.Migrations
 {
     [DbContext(typeof(InterviewContext))]
-    [Migration("20220818194522_InitialMigration")]
+    [Migration("20220818222207_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -140,13 +140,13 @@ namespace InterviewAPI.Persistence.Migrations
             modelBuilder.Entity("InterviewAPI.Entities.Models.InterviewInterviewer", b =>
                 {
                     b.HasOne("InterviewAPI.Entities.Models.Interview", "Interview")
-                        .WithMany("InterviewerLink")
+                        .WithMany()
                         .HasForeignKey("InterviewId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("InterviewAPI.Entities.Models.Interviewer", "Interviewer")
-                        .WithMany("InterviewsLink")
+                        .WithMany()
                         .HasForeignKey("InterviewerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -154,16 +154,6 @@ namespace InterviewAPI.Persistence.Migrations
                     b.Navigation("Interview");
 
                     b.Navigation("Interviewer");
-                });
-
-            modelBuilder.Entity("InterviewAPI.Entities.Models.Interview", b =>
-                {
-                    b.Navigation("InterviewerLink");
-                });
-
-            modelBuilder.Entity("InterviewAPI.Entities.Models.Interviewer", b =>
-                {
-                    b.Navigation("InterviewsLink");
                 });
 #pragma warning restore 612, 618
         }

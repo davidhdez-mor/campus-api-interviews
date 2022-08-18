@@ -20,17 +20,7 @@ namespace InterviewAPI.Persistence.Repositories
         {
             return await InterviewContext.Set<Interview>()
                 .Include(t => t.Interviewee)
-                .Include(interview => interview.InterviewerLink
-                    .Join(interview.InterviewerLink,
-                        ii1 => ii1.InterviewId,
-                        ii2 => ii2.InterviewerId,
-                        (ii1, ii2) => new
-                        {
-                            Interview = ii1,
-                            Interviewer = ii2
-                        }
-                    )
-                )
+                .Include(t => t.Interviewers)
                 .AsNoTracking()
                 .ToListAsync();
         }
@@ -39,7 +29,7 @@ namespace InterviewAPI.Persistence.Repositories
         {
             return await InterviewContext.Set<Interview>()
                 .Include(t => t.Interviewee)
-                .Include(t => t.InterviewerLink)
+                .Include(t => t.Interviewers)
                 .Where(expression)
                 .AsNoTracking()
                 .ToListAsync();
@@ -49,18 +39,24 @@ namespace InterviewAPI.Persistence.Repositories
         {
             InterviewContext.Entry(entity).State = EntityState.Added;
             InterviewContext.Entry(entity.Interviewee).State = EntityState.Unchanged;
-            entity.InterviewerLink.ForEach(interviewer =>
-                InterviewContext.Entry(interviewer).State = EntityState.Unchanged);
+            foreach (var interviewer in entity.Interviewers)
+            {
+                InterviewContext.Entry(interviewer).State = EntityState.Unchanged;
+            }
         }
 
         public override void Update(Interview entity)
         {
             InterviewContext.Entry(entity).State = EntityState.Modified;
             InterviewContext.Entry(entity.Interviewee).State = EntityState.Unchanged;
-
-            // Solo agrega entrevistadores pero no se pueden repetir
-            entity.InterviewerLink.ForEach(interviewer =>
-                InterviewContext.Entry(interviewer).State = EntityState.Modified);
+            
+            InterviewContext.Entry(entity.Interviewers).State = EntityState.Unchanged;
+            //
+            // // Solo agrega entrevistadores pero no se pueden repetir
+            // foreach (var interviewer in entity.Interviewers)
+            // {
+            //     InterviewContext.Entry(interviewer).State = EntityState.Unchanged;
+            // }
 
             // InterviewContext.Set<Interview>().Update(entity);
         }

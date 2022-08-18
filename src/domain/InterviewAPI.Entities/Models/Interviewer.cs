@@ -26,7 +26,7 @@ namespace InterviewAPI.Entities.Models
         [Column(TypeName = "date")]
         public DateTime BirthDay { get; set; }
         
-        public List<InterviewInterviewer> InterviewsLink { get; set; }
+        public IEnumerable<Interview> Interviews { get; set; }
         
     }
 }
