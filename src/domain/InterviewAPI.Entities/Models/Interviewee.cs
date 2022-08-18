@@ -25,7 +25,5 @@ namespace InterviewAPI.Entities.Models
         [Required]
         [Column(TypeName = "date")]
         public DateTime BirthDay { get; set; }
-
-        public List<Interview> Interviews { get; set; }
     }
 }

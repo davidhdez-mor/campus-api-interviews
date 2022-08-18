@@ -20,7 +20,17 @@ namespace InterviewAPI.Persistence.Repositories
         {
             return await InterviewContext.Set<Interview>()
                 .Include(t => t.Interviewee)
-                .Include(t => t.Interviewers)
+                .Include(interview => interview.InterviewerLink
+                    .Join(interview.InterviewerLink,
+                        ii1 => ii1.InterviewId,
+                        ii2 => ii2.InterviewerId,
+                        (ii1, ii2) => new
+                        {
+                            Interview = ii1,
+                            Interviewer = ii2
+                        }
+                    )
+                )
                 .AsNoTracking()
                 .ToListAsync();
         }
@@ -29,7 +39,7 @@ namespace InterviewAPI.Persistence.Repositories
         {
             return await InterviewContext.Set<Interview>()
                 .Include(t => t.Interviewee)
-                .Include(t => t.Interviewers)
+                .Include(t => t.InterviewerLink)
                 .Where(expression)
                 .AsNoTracking()
                 .ToListAsync();
@@ -39,7 +49,7 @@ namespace InterviewAPI.Persistence.Repositories
         {
             InterviewContext.Entry(entity).State = EntityState.Added;
             InterviewContext.Entry(entity.Interviewee).State = EntityState.Unchanged;
-            entity.Interviewers.ForEach(interviewer =>
+            entity.InterviewerLink.ForEach(interviewer =>
                 InterviewContext.Entry(interviewer).State = EntityState.Unchanged);
         }
 
@@ -49,7 +59,7 @@ namespace InterviewAPI.Persistence.Repositories
             InterviewContext.Entry(entity.Interviewee).State = EntityState.Unchanged;
 
             // Solo agrega entrevistadores pero no se pueden repetir
-            entity.Interviewers.ForEach(interviewer =>
+            entity.InterviewerLink.ForEach(interviewer =>
                 InterviewContext.Entry(interviewer).State = EntityState.Modified);
 
             // InterviewContext.Set<Interview>().Update(entity);

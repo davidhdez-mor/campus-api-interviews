@@ -64,30 +64,37 @@ namespace InterviewAPI.Persistence.Migrations
                 name: "InterviewInterviewer",
                 columns: table => new
                 {
-                    InterviewersId = table.Column<int>(type: "int", nullable: false),
-                    InterviewsId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    InterviewId = table.Column<int>(type: "int", nullable: false),
+                    InterviewerId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_InterviewInterviewer", x => new { x.InterviewersId, x.InterviewsId });
+                    table.PrimaryKey("PK_InterviewInterviewer", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_InterviewInterviewer_Interviewers_InterviewersId",
-                        column: x => x.InterviewersId,
+                        name: "FK_InterviewInterviewer_Interviewers_InterviewerId",
+                        column: x => x.InterviewerId,
                         principalTable: "Interviewers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_InterviewInterviewer_Interviews_InterviewsId",
-                        column: x => x.InterviewsId,
+                        name: "FK_InterviewInterviewer_Interviews_InterviewId",
+                        column: x => x.InterviewId,
                         principalTable: "Interviews",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_InterviewInterviewer_InterviewsId",
+                name: "IX_InterviewInterviewer_InterviewerId",
                 table: "InterviewInterviewer",
-                column: "InterviewsId");
+                column: "InterviewerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_InterviewInterviewer_InterviewId",
+                table: "InterviewInterviewer",
+                column: "InterviewId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Interviews_IntervieweeId",

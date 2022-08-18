@@ -5,10 +5,6 @@
         <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Filters" />
-    </ItemGroup>
-
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
     </PropertyGroup>

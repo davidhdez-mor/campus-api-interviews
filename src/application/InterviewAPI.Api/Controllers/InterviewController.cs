@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using InterviewAPI.Api.Filters;
 using Microsoft.AspNetCore.Mvc;
 using InterviewAPI.Dtos.DTOs;
 using InterviewAPI.Services.Services.Abstractions;
@@ -34,6 +35,7 @@ namespace InterviewAPI.Api.Controllers
             return Ok(interview);
         }
 
+        [ServiceFilter(typeof(TruncatedFilter))]
         [HttpPost]
         public async Task<IActionResult> CreateInterview(InterviewWriteDto interviewWriteDto)
         {
@@ -43,6 +45,7 @@ namespace InterviewAPI.Api.Controllers
             // return CreatedAtRoute(nameof(CreateInterview), interview);
         }
 
+        [ServiceFilter(typeof(TruncatedFilter))]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateInterview(int id, InterviewUpdateDto interviewUpdateDto)
         {

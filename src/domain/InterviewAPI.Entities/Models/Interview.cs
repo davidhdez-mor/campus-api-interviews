@@ -19,6 +19,6 @@ namespace InterviewAPI.Entities.Models
         public DateTime Appointment { get; set; }
 
         public Interviewee Interviewee { get; set; }
-        public List<Interviewer> Interviewers { get; set; }
+        public List<InterviewInterviewer> InterviewerLink { get; set; }
     }
 }

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InterviewAPI.Persistence.Migrations
 {
     [DbContext(typeof(InterviewContext))]
-    [Migration("20220817180109_InitialMigration")]
+    [Migration("20220818194522_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -44,6 +44,28 @@ namespace InterviewAPI.Persistence.Migrations
                     b.HasIndex("IntervieweeId");
 
                     b.ToTable("Interviews");
+                });
+
+            modelBuilder.Entity("InterviewAPI.Entities.Models.InterviewInterviewer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("InterviewId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("InterviewerId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("InterviewId");
+
+                    b.HasIndex("InterviewerId");
+
+                    b.ToTable("InterviewInterviewer");
                 });
 
             modelBuilder.Entity("InterviewAPI.Entities.Models.Interviewee", b =>
@@ -106,48 +128,42 @@ namespace InterviewAPI.Persistence.Migrations
                     b.ToTable("Interviewers");
                 });
 
-            modelBuilder.Entity("InterviewInterviewer", b =>
-                {
-                    b.Property<int>("InterviewersId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("InterviewsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("InterviewersId", "InterviewsId");
-
-                    b.HasIndex("InterviewsId");
-
-                    b.ToTable("InterviewInterviewer");
-                });
-
             modelBuilder.Entity("InterviewAPI.Entities.Models.Interview", b =>
                 {
                     b.HasOne("InterviewAPI.Entities.Models.Interviewee", "Interviewee")
-                        .WithMany("Interviews")
+                        .WithMany()
                         .HasForeignKey("IntervieweeId");
 
                     b.Navigation("Interviewee");
                 });
 
-            modelBuilder.Entity("InterviewInterviewer", b =>
+            modelBuilder.Entity("InterviewAPI.Entities.Models.InterviewInterviewer", b =>
                 {
-                    b.HasOne("InterviewAPI.Entities.Models.Interviewer", null)
-                        .WithMany()
-                        .HasForeignKey("InterviewersId")
+                    b.HasOne("InterviewAPI.Entities.Models.Interview", "Interview")
+                        .WithMany("InterviewerLink")
+                        .HasForeignKey("InterviewId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("InterviewAPI.Entities.Models.Interview", null)
-                        .WithMany()
-                        .HasForeignKey("InterviewsId")
+                    b.HasOne("InterviewAPI.Entities.Models.Interviewer", "Interviewer")
+                        .WithMany("InterviewsLink")
+                        .HasForeignKey("InterviewerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Interview");
+
+                    b.Navigation("Interviewer");
                 });
 
-            modelBuilder.Entity("InterviewAPI.Entities.Models.Interviewee", b =>
+            modelBuilder.Entity("InterviewAPI.Entities.Models.Interview", b =>
                 {
-                    b.Navigation("Interviews");
+                    b.Navigation("InterviewerLink");
+                });
+
+            modelBuilder.Entity("InterviewAPI.Entities.Models.Interviewer", b =>
+                {
+                    b.Navigation("InterviewsLink");
                 });
 #pragma warning restore 612, 618
         }
