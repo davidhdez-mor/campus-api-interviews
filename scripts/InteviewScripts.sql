@@ -40,7 +40,7 @@ GO
 
 -- Insertar 4 registros en InterviewInterviewer para relacionar Interviews y Interviewers 
 INSERT INTO InterviewInterviewer
-   ([InterviewsId], [InterviewersId])
+   ([InterviewId], [InterviewerId])
 VALUES
    (1, 1),
    (1, 2),

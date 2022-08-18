@@ -1,5 +1,4 @@
 using InterviewAPI.Entities.Models;
-using InterviewAPI.Persistence.EntityConfiguration;
 using Microsoft.EntityFrameworkCore;
 
 namespace InterviewAPI.Persistence.Context
