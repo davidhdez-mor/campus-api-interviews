@@ -9,6 +9,8 @@ namespace InterviewAPI.Persistence.EntityConfiguration
         public void Configure(EntityTypeBuilder<Interviewee> builder)
         {
             builder.HasKey(interviewee => interviewee.Id);
+            builder.Property(interviewee => interviewee.Id)
+                .ValueGeneratedOnAdd();
 
             builder.Property(interviewee => interviewee.FirstName)
                 .IsRequired()

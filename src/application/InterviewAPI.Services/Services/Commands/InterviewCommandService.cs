@@ -23,12 +23,12 @@ namespace InterviewAPI.Services.Services.Commands
 
         public async Task<InterviewReadDto> CreateInterview(InterviewWriteDto interviewWriteDto)
         {
-            int intervieweeId = interviewWriteDto.IntervieweeId;
+            var intervieweeId = interviewWriteDto.IntervieweeId;
             var interviewerIds = interviewWriteDto.InterviewerIds;
 
             var (interviewee, interviewers) = await GetRelatedEntities(intervieweeId, interviewerIds);
 
-            Interview interview = new Interview()
+            var interview = new Interview()
             {
                 Appointment = interviewWriteDto.Appointment,
                 Name = interviewWriteDto.Name,

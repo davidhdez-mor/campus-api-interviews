@@ -46,20 +46,13 @@ namespace InterviewAPI.Persistence.Migrations
 
             modelBuilder.Entity("InterviewAPI.Entities.Models.InterviewInterviewer", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<int>("InterviewId")
                         .HasColumnType("int");
 
                     b.Property<int>("InterviewerId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("InterviewId");
+                    b.HasKey("InterviewId", "InterviewerId");
 
                     b.HasIndex("InterviewerId");
 

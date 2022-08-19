@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InterviewAPI.Persistence.Migrations
 {
     [DbContext(typeof(InterviewContext))]
-    [Migration("20220819143221_InitialMigration")]
+    [Migration("20220819210050_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -48,20 +48,13 @@ namespace InterviewAPI.Persistence.Migrations
 
             modelBuilder.Entity("InterviewAPI.Entities.Models.InterviewInterviewer", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<int>("InterviewId")
                         .HasColumnType("int");
 
                     b.Property<int>("InterviewerId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("InterviewId");
+                    b.HasKey("InterviewId", "InterviewerId");
 
                     b.HasIndex("InterviewerId");
 

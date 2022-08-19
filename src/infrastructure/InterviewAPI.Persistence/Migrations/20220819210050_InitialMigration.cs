@@ -64,14 +64,12 @@ namespace InterviewAPI.Persistence.Migrations
                 name: "InterviewInterviewer",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
                     InterviewId = table.Column<int>(type: "int", nullable: false),
                     InterviewerId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_InterviewInterviewer", x => x.Id);
+                    table.PrimaryKey("PK_InterviewInterviewer", x => new { x.InterviewId, x.InterviewerId });
                     table.ForeignKey(
                         name: "FK_InterviewInterviewer_Interviewers_InterviewerId",
                         column: x => x.InterviewerId,
@@ -90,11 +88,6 @@ namespace InterviewAPI.Persistence.Migrations
                 name: "IX_InterviewInterviewer_InterviewerId",
                 table: "InterviewInterviewer",
                 column: "InterviewerId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_InterviewInterviewer_InterviewId",
-                table: "InterviewInterviewer",
-                column: "InterviewId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Interviews_IntervieweeId",
