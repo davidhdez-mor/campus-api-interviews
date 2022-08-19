@@ -1,6 +1,8 @@
 using System;
 using System.Threading.Tasks;
 using InterviewAPI.Persistence.Abstractions;
+using InterviewAPI.Persistence.Abstractions.Commands;
+using InterviewAPI.Persistence.Abstractions.Queries;
 using InterviewAPI.Persistence.Context;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -12,12 +14,14 @@ namespace InterviewAPI.Persistence.Repositories
         private readonly InterviewContext _interviewContext;
         private readonly IServiceProvider _serviceProvider;
 
-        public IInterviewRepository Interview => _serviceProvider.GetService<IInterviewRepository>();
+        public IInterviewCrudRepository InterviewRepository => _serviceProvider.GetService<IInterviewCrudRepository>();
+        public IIntervieweeCrudRepository IntervieweeRepository => _serviceProvider.GetService<IIntervieweeCrudRepository>();
+        public IInterviewerCrudRepository InterviewerRepository => _serviceProvider.GetService<IInterviewerCrudRepository>();
 
-        public IIntervieweeRepository Interviewee => _serviceProvider.GetService<IIntervieweeRepository>();
+        public IInterviewerReadOnlyRepository InterviewerReadOnlyRepository => _serviceProvider.GetService<IInterviewerReadOnlyRepository>();
+        public IInterviewReadOnlyRepository InterviewReadOnlyRepository => _serviceProvider.GetService<IInterviewReadOnlyRepository>();
+        public IIntervieweeReadOnlyRepository IntervieweeReadOnlyRepository => _serviceProvider.GetService<IIntervieweeReadOnlyRepository>();
 
-        public IInterviewerRepository Interviewer => _serviceProvider.GetService<IInterviewerRepository>();
-        
         public async Task Save()
         {
             await _interviewContext.SaveChangesAsync();

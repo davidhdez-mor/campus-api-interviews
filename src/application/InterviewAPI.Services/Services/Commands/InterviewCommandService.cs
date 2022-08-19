@@ -6,39 +6,19 @@ using AutoMapper;
 using InterviewAPI.Dtos.DTOs;
 using InterviewAPI.Entities.Models;
 using InterviewAPI.Persistence.Abstractions;
-using InterviewAPI.Services.Abstractions;
+using InterviewAPI.Services.Abstractions.Commands;
 
-namespace InterviewAPI.Services.Services
+namespace InterviewAPI.Services.Services.Commands
 {
-    public class InterviewService : IInterviewService
+    public class InterviewCommandService : IInterviewCommandService
     {
         private readonly IRepositoryWrapper _repoWrapper;
         private readonly IMapper _mapper;
 
-        public InterviewService(IRepositoryWrapper wrapper, IMapper mapper)
+        public InterviewCommandService(IRepositoryWrapper wrapper, IMapper mapper)
         {
             _repoWrapper = wrapper;
             _mapper = mapper;
-        }
-
-        public async Task<IEnumerable<InterviewReadDto>> GetInterviews()
-        {
-            var interviews = await _repoWrapper.Interview.GetAll();
-            var allInterviews = _mapper.Map<List<InterviewReadDto>>(interviews);
-
-            return allInterviews;
-        }
-
-        public async Task<InterviewReadDto> GetInterviewById(int id)
-        {
-            var interview = await
-                _repoWrapper
-                    .Interview
-                    .GetByCondition(i => i.Id == id);
-
-            var mapInterview = _mapper.Map<List<InterviewReadDto>>(interview);
-
-            return mapInterview.Count > 0 ? mapInterview.FirstOrDefault() : null;
         }
 
         public async Task<InterviewReadDto> CreateInterview(InterviewWriteDto interviewWriteDto)
@@ -56,7 +36,7 @@ namespace InterviewAPI.Services.Services
                 Interviewers = interviewers
             };
 
-            _repoWrapper.Interview.Create(interview);
+            _repoWrapper.InterviewRepository.Create(interview);
             await _repoWrapper.Save();
 
             var interviewReadDto = _mapper.Map<InterviewReadDto>(interview);
@@ -71,7 +51,7 @@ namespace InterviewAPI.Services.Services
 
             var (interviewee, interviewers) = await GetRelatedEntities(intervieweeId, interviewerIds);
 
-            var interviews = await _repoWrapper.Interview
+            var interviews = await _repoWrapper.InterviewRepository
                 .GetByCondition(i => i.Id.Equals(id));
 
             var interview = interviews.FirstOrDefault();
@@ -84,7 +64,7 @@ namespace InterviewAPI.Services.Services
             interview.Appointment = interviewUpdateDto.Appointment;
             interview.Name = interviewUpdateDto.Name;
 
-            _repoWrapper.Interview.Update(interview);
+            _repoWrapper.InterviewRepository.Update(interview);
             await _repoWrapper.Save();
             var interviewReadDto = _mapper.Map<InterviewReadDto>(interview);
 
@@ -93,12 +73,12 @@ namespace InterviewAPI.Services.Services
 
         public async Task DeleteInterview(int id)
         {
-            var interviews = await _repoWrapper.Interview
+            var interviews = await _repoWrapper.InterviewRepository
                 .GetByCondition(i => i.Id.Equals(id));
             var interviewToDelete = interviews.FirstOrDefault();
             if (interviewToDelete is null)
                 throw new NullReferenceException("No existe la entrevista");
-            _repoWrapper.Interview.Delete(interviewToDelete);
+            _repoWrapper.InterviewRepository.Delete(interviewToDelete);
             await _repoWrapper.Save();
         }
 
@@ -106,11 +86,11 @@ namespace InterviewAPI.Services.Services
             IEnumerable<int> interviewerIds)
         {
             var interviewees = await _repoWrapper
-                .Interviewee
+                .IntervieweeRepository
                 .GetByCondition(interviewee => interviewee.Id.Equals(intervieweeId));
 
             var interviewers = await _repoWrapper
-                .Interviewer
+                .InterviewerRepository
                 .GetByCondition(interviewer => interviewerIds.Any(iDs => interviewer.Id.Equals(iDs)));
 
             return (interviewees.FirstOrDefault(), interviewers);

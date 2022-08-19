@@ -4,38 +4,32 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using InterviewAPI.Entities.Models;
-using InterviewAPI.Persistence.Abstractions;
+using InterviewAPI.Persistence.Abstractions.Queries;
 using InterviewAPI.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 
-namespace InterviewAPI.Persistence.Repositories
+namespace InterviewAPI.Persistence.Repositories.Queries
 {
-    public class InterviewerRepository : RepositoryBase<Interviewer>, IInterviewerRepository
+    public class InterviewerReadOnlyRepository : ReadOnlyRepository<Interviewer>, IInterviewerReadOnlyRepository
     {
-        public InterviewerRepository(InterviewContext interviewContext) : base(interviewContext)
+        public InterviewerReadOnlyRepository(InterviewContext interviewContext) : base(interviewContext)
         {
         }
-
         public override async Task<List<Interviewer>> GetAll()
         {
             return await InterviewContext.Set<Interviewer>()
-                .Include(i => i.Interviews)
+                .Include(interviewer => interviewer.Interviews)
                 .AsNoTracking()
                 .ToListAsync();
         }
 
         public override async Task<List<Interviewer>> GetByCondition(Expression<Func<Interviewer, bool>> expression)
         {
-            return await InterviewContext.Interviewers
-                .Include(i => i.Interviews)
+            return await InterviewContext.Set<Interviewer>()
+                .Include(interviewer => interviewer.Interviews)
                 .Where(expression)
                 .AsNoTracking()
                 .ToListAsync();
-        }
-
-        public override void Create(Interviewer entity)
-        {
-            InterviewContext.Set<Interviewer>().Add(entity);
         }
     }
 }

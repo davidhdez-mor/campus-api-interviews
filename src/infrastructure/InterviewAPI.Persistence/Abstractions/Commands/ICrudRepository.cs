@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace InterviewAPI.Persistence.Abstractions
+namespace InterviewAPI.Persistence.Abstractions.Commands
 {
-    public interface IRepositoryBase<T>
+    public interface ICrudRepository<T>
     {
         public Task<List<T>> GetAll();
         public Task<List<T>> GetByCondition(Expression<Func<T, bool>> expression);

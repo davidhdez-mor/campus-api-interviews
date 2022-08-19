@@ -28,6 +28,7 @@ namespace InterviewAPI.Persistence.EntityConfiguration
             builder.Property(interviewee => interviewee.BirthDay)
                 .IsRequired()
                 .HasColumnType("date");
+            
         }
     }
 }

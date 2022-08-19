@@ -21,9 +21,11 @@ namespace InterviewAPI.Persistence.EntityConfiguration
             builder.HasMany(interview => interview.Interviewers)
                 .WithMany(interviewer => interviewer.Interviews)
                 .UsingEntity<InterviewInterviewer>(right => right.HasOne(r => r.Interviewer)
-                        .WithMany(),
+                        .WithMany()
+                        .OnDelete(DeleteBehavior.Cascade),
                     left => left.HasOne(l => l.Interview)
-                        .WithMany(),
+                        .WithMany()
+                        .OnDelete(DeleteBehavior.Cascade),
                     pivot => pivot.HasKey(p => p.Id));
         }
     }

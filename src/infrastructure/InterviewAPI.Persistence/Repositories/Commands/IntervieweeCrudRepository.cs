@@ -4,15 +4,15 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using InterviewAPI.Entities.Models;
-using InterviewAPI.Persistence.Abstractions;
+using InterviewAPI.Persistence.Abstractions.Commands;
 using InterviewAPI.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 
-namespace InterviewAPI.Persistence.Repositories
+namespace InterviewAPI.Persistence.Repositories.Commands
 {
-    public class IntervieweeRepository : RepositoryBase<Interviewee>, IIntervieweeRepository
+    public class IntervieweeCrudRepository : CrudRepository<Interviewee>, IIntervieweeCrudRepository
     {
-        public IntervieweeRepository(InterviewContext interviewContext) : base(interviewContext)
+        public IntervieweeCrudRepository(InterviewContext interviewContext) : base(interviewContext)
         {
             
         }
@@ -20,14 +20,12 @@ namespace InterviewAPI.Persistence.Repositories
         public override async Task<List<Interviewee>> GetAll()
         {
             return await InterviewContext.Set<Interviewee>()
-                .AsNoTracking()
                 .ToListAsync();
         }
 
         public override async Task<List<Interviewee>> GetByCondition(Expression<Func<Interviewee, bool>> expresion)
         {
             return await InterviewContext.Set<Interviewee>()
-                .AsNoTracking()
                 .Where(expresion)
                 .ToListAsync();
         }

@@ -3,7 +3,8 @@ using System.Threading.Tasks;
 using InterviewAPI.Api.Filters;
 using Microsoft.AspNetCore.Mvc;
 using InterviewAPI.Dtos.DTOs;
-using InterviewAPI.Services.Abstractions;
+using InterviewAPI.Services.Abstractions.Commands;
+using InterviewAPI.Services.Abstractions.Queries;
 
 namespace InterviewAPI.Api.Controllers
 {
@@ -11,24 +12,26 @@ namespace InterviewAPI.Api.Controllers
     [Route("api/Interview")]
     public class InterviewController : ControllerBase
     {
-        private readonly IInterviewService _interviewService;
+        private readonly IInterviewCommandService _interviewCommandService;
+        private readonly IInterviewQueryService _interviewQueryService;
 
-        public InterviewController(IInterviewService interviewService)
+        public InterviewController(IInterviewCommandService interviewCommandService, IInterviewQueryService interviewQueryService)
         {
-            _interviewService = interviewService;
+            _interviewCommandService = interviewCommandService;
+            _interviewQueryService = interviewQueryService;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetInterviews()
         {
-            var interviews = await _interviewService.GetInterviews();
+            var interviews = await _interviewQueryService.GetInterviews();
             return Ok(interviews);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetInterviewsById(int id)
         {
-            var interview = await _interviewService.GetInterviewById(id);
+            var interview = await _interviewQueryService.GetInterviewById(id);
 
             if (interview is null)
                 return NotFound();
@@ -39,7 +42,7 @@ namespace InterviewAPI.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateInterview(InterviewWriteDto interviewWriteDto)
         {
-            var interview = await _interviewService.CreateInterview(interviewWriteDto);
+            var interview = await _interviewCommandService.CreateInterview(interviewWriteDto);
             
             return Created(Request.Path, interview);
         }
@@ -48,7 +51,7 @@ namespace InterviewAPI.Api.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateInterview(int id, InterviewUpdateDto interviewUpdateDto)
         {
-            var interview = await _interviewService.UpdateInterview(id, interviewUpdateDto);
+            var interview = await _interviewCommandService.UpdateInterview(id, interviewUpdateDto);
             if (interview is null)
                 return NotFound();
             return NoContent();
@@ -59,7 +62,7 @@ namespace InterviewAPI.Api.Controllers
         {
             try
             {
-                await _interviewService.DeleteInterview(id);
+                await _interviewCommandService.DeleteInterview(id);
                 return NoContent();
             }
             catch (NullReferenceException ex)
