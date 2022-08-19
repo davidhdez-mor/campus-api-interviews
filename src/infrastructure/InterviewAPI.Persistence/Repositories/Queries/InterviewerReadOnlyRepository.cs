@@ -18,7 +18,7 @@ namespace InterviewAPI.Persistence.Repositories.Queries
         public override async Task<List<Interviewer>> GetAll()
         {
             return await InterviewContext.Set<Interviewer>()
-                .Include(interviewer => interviewer.Interviews)
+                .Include(interviewer => interviewer.InterviewInterviewers)
                 .AsNoTracking()
                 .ToListAsync();
         }
@@ -26,7 +26,7 @@ namespace InterviewAPI.Persistence.Repositories.Queries
         public override async Task<List<Interviewer>> GetByCondition(Expression<Func<Interviewer, bool>> expression)
         {
             return await InterviewContext.Set<Interviewer>()
-                .Include(interviewer => interviewer.Interviews)
+                .Include(interviewer => interviewer.InterviewInterviewers)
                 .Where(expression)
                 .AsNoTracking()
                 .ToListAsync();

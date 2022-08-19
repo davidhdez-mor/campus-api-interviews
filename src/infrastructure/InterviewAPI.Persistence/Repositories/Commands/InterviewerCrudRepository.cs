@@ -19,14 +19,14 @@ namespace InterviewAPI.Persistence.Repositories.Commands
         public override async Task<List<Interviewer>> GetAll()
         {
             return await InterviewContext.Set<Interviewer>()
-                .Include(i => i.Interviews)
+                .Include(i => i.InterviewInterviewers)
                 .ToListAsync();
         }
 
         public override async Task<List<Interviewer>> GetByCondition(Expression<Func<Interviewer, bool>> expression)
         {
             return await InterviewContext.Interviewers
-                .Include(i => i.Interviews)
+                .Include(i => i.InterviewInterviewers)
                 .Where(expression)
                 .ToListAsync();
         }

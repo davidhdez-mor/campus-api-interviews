@@ -9,6 +9,7 @@ namespace InterviewAPI.Entities.Models
         public string Name { get; set; }
         public DateTime Appointment { get; set; }
         public Interviewee Interviewee { get; set; }
-        public IEnumerable<Interviewer> Interviewers { get; set; }
+        // public IEnumerable<Interviewer> Interviewers { get; set; }
+        public List<InterviewInterviewer> InterviewInterviewers { get; set; }
     }
 }

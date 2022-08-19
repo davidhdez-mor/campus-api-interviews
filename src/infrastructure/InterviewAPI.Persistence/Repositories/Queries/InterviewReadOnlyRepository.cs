@@ -20,7 +20,7 @@ namespace InterviewAPI.Persistence.Repositories.Queries
         {
             return await InterviewContext.Set<Interview>()
                 .Include(interview => interview.Interviewee)
-                .Include(interview => interview.Interviewers)
+                .Include(interview => interview.InterviewInterviewers)
                 .AsNoTracking()
                 .ToListAsync();
         }
@@ -29,7 +29,7 @@ namespace InterviewAPI.Persistence.Repositories.Queries
         {
             return await InterviewContext.Set<Interview>()
                 .Include(interview => interview.Interviewee)
-                .Include(interview => interview.Interviewers)
+                .Include(interview => interview.InterviewInterviewers)      
                 .Where(expression)
                 .AsNoTracking()
                 .ToListAsync();

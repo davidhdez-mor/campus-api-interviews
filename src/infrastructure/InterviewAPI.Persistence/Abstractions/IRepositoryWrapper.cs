@@ -11,9 +11,6 @@ namespace InterviewAPI.Persistence.Abstractions
         IIntervieweeCrudRepository IntervieweeRepository { get; }
         IInterviewerCrudRepository InterviewerRepository { get; }
         
-        IInterviewReadOnlyRepository InterviewReadOnlyRepository { get; }
-        IIntervieweeReadOnlyRepository IntervieweeReadOnlyRepository { get; }
-        IInterviewerReadOnlyRepository InterviewerReadOnlyRepository { get; }
         Task Save();
     }
 }

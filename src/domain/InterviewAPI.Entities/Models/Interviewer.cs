@@ -10,7 +10,7 @@ namespace InterviewAPI.Entities.Models
         public string LastName { get; set; }
         public string Email { get; set; }
         public DateTime BirthDay { get; set; }
-        public IEnumerable<Interview> Interviews { get; set; }
-        
+        // public IEnumerable<Interview> Interviews { get; set; }
+        public List<InterviewInterviewer> InterviewInterviewers { get; set; }
     }
 }

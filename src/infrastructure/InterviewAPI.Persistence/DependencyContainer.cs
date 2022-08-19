@@ -25,6 +25,7 @@ namespace InterviewAPI.Persistence
             services.AddScoped<IInterviewerReadOnlyRepository, InterviewerReadOnlyRepository>();
             services.AddScoped<IIntervieweeReadOnlyRepository, IntervieweeReadOnlyRepository>();
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
+            services.AddScoped<IRepositoryReadOnlyWrapper, RepositoryReadOnlyWrapper>();
             return services;
         }
     }

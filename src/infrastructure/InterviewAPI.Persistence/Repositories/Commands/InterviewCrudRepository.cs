@@ -20,7 +20,7 @@ namespace InterviewAPI.Persistence.Repositories.Commands
         {
             return await InterviewContext.Set<Interview>()
                 .Include(t => t.Interviewee)
-                .Include(t => t.Interviewers)
+                .Include(t => t.InterviewInterviewers)
                 .ToListAsync();
         }
 
@@ -28,24 +28,19 @@ namespace InterviewAPI.Persistence.Repositories.Commands
         {
             return await InterviewContext.Set<Interview>()
                 .Include(t => t.Interviewee)
-                .Include(t => t.Interviewers)
+                .Include(t => t.InterviewInterviewers)
                 .Where(expression)
                 .ToListAsync();
         }
 
         public override void Create(Interview entity)
         {
-            InterviewContext.Entry(entity).State = EntityState.Added;
-            InterviewContext.Entry(entity.Interviewee).State = EntityState.Unchanged;
-            foreach (var interviewer in entity.Interviewers)
-            {
-                InterviewContext.Entry(interviewer).State = EntityState.Unchanged;
-            }
+            InterviewContext.Set<Interview>().Add(entity);
         }
 
         public override void Update(Interview entity)
         {
-            InterviewContext.Entry(entity).State = EntityState.Modified;
+            InterviewContext.Set<Interview>().Update(entity);
         }
     }
 }

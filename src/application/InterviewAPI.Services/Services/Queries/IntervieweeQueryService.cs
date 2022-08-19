@@ -10,10 +10,10 @@ namespace InterviewAPI.Services.Services.Queries
 {
     public class IntervieweeQueryService : IIntervieweeQueryService
     {
-        private readonly IRepositoryWrapper _repoWrapper;
+        private readonly IRepositoryReadOnlyWrapper _repoWrapper;
         private readonly IMapper _mapper;
 
-        public IntervieweeQueryService(IRepositoryWrapper wrapper, IMapper mapper)
+        public IntervieweeQueryService(IRepositoryReadOnlyWrapper wrapper, IMapper mapper)
         {
             _repoWrapper = wrapper;
             _mapper = mapper;

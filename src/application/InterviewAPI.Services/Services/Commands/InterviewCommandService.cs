@@ -33,7 +33,7 @@ namespace InterviewAPI.Services.Services.Commands
                 Appointment = interviewWriteDto.Appointment,
                 Name = interviewWriteDto.Name,
                 Interviewee = interviewee,
-                Interviewers = interviewers
+                // Interviewers = interviewers
             };
 
             _repoWrapper.InterviewRepository.Create(interview);
@@ -46,11 +46,6 @@ namespace InterviewAPI.Services.Services.Commands
 
         public async Task<InterviewReadDto> UpdateInterview(int id, InterviewUpdateDto interviewUpdateDto)
         {
-            var intervieweeId = interviewUpdateDto.IntervieweeId;
-            var interviewerIds = interviewUpdateDto.InterviewerIds;
-
-            var (interviewee, interviewers) = await GetRelatedEntities(intervieweeId, interviewerIds);
-
             var interviews = await _repoWrapper.InterviewRepository
                 .GetByCondition(i => i.Id.Equals(id));
 
@@ -58,9 +53,14 @@ namespace InterviewAPI.Services.Services.Commands
 
             if (interview is null)
                 return null;
+            
+            var intervieweeId = interviewUpdateDto.IntervieweeId;
+            var interviewerIds = interviewUpdateDto.InterviewerIds;
+
+            var (interviewee, interviewers) = await GetRelatedEntities(intervieweeId, interviewerIds);
 
             interview.Interviewee = interviewee;
-            interview.Interviewers = interviewers;
+            // interview.InterviewInterviewers = interviewers;
             interview.Appointment = interviewUpdateDto.Appointment;
             interview.Name = interviewUpdateDto.Name;
 
