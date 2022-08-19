@@ -1,6 +1,5 @@
 using System.Threading.Tasks;
-using InterviewAPI.Persistence.Abstractions.Commands;
-using InterviewAPI.Persistence.Abstractions.Queries;
+using InterviewAPI.Persistence.Abstractions.Crud;
 
 namespace InterviewAPI.Persistence.Abstractions
 {
@@ -11,9 +10,6 @@ namespace InterviewAPI.Persistence.Abstractions
         IIntervieweeCrudRepository IntervieweeRepository { get; }
         IInterviewerCrudRepository InterviewerRepository { get; }
         
-        IInterviewReadOnlyRepository InterviewReadOnlyRepository { get; }
-        IIntervieweeReadOnlyRepository IntervieweeReadOnlyRepository { get; }
-        IInterviewerReadOnlyRepository InterviewerReadOnlyRepository { get; }
         Task Save();
     }
 }

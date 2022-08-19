@@ -1,10 +1,10 @@
 using InterviewAPI.Persistence.Abstractions;
-using InterviewAPI.Persistence.Abstractions.Commands;
-using InterviewAPI.Persistence.Abstractions.Queries;
+using InterviewAPI.Persistence.Abstractions.Crud;
+using InterviewAPI.Persistence.Abstractions.ReadOnly;
 using InterviewAPI.Persistence.Context;
 using InterviewAPI.Persistence.Repositories;
-using InterviewAPI.Persistence.Repositories.Commands;
-using InterviewAPI.Persistence.Repositories.Queries;
+using InterviewAPI.Persistence.Repositories.Crud;
+using InterviewAPI.Persistence.Repositories.ReadOnly;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,6 +25,7 @@ namespace InterviewAPI.Persistence
             services.AddScoped<IInterviewerReadOnlyRepository, InterviewerReadOnlyRepository>();
             services.AddScoped<IIntervieweeReadOnlyRepository, IntervieweeReadOnlyRepository>();
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
+            services.AddScoped<IReadOnlyWrapper, ReadOnlyWrapper>();
             return services;
         }
     }

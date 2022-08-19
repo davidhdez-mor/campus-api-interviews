@@ -4,11 +4,11 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using InterviewAPI.Entities.Models;
-using InterviewAPI.Persistence.Abstractions.Queries;
+using InterviewAPI.Persistence.Abstractions.ReadOnly;
 using InterviewAPI.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 
-namespace InterviewAPI.Persistence.Repositories.Queries
+namespace InterviewAPI.Persistence.Repositories.ReadOnly
 {
     public class InterviewReadOnlyRepository : ReadOnlyRepository<Interview>, IInterviewReadOnlyRepository
     {

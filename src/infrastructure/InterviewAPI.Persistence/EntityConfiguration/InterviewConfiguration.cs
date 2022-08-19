@@ -16,6 +16,7 @@ namespace InterviewAPI.Persistence.EntityConfiguration
             
             builder.Property(interview => interview.Name)
                 .IsRequired()
+                .HasColumnType("nvarchar")
                 .HasMaxLength(255);
             
             builder.HasMany(interview => interview.Interviewers)

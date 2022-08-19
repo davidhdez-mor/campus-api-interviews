@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using InterviewAPI.Persistence.Abstractions.Commands;
+using InterviewAPI.Persistence.Abstractions.Crud;
 using InterviewAPI.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 
-namespace InterviewAPI.Persistence.Repositories.Commands
+namespace InterviewAPI.Persistence.Repositories.Crud
 {
     public class CrudRepository<T> : ICrudRepository<T> where T : class
     {
