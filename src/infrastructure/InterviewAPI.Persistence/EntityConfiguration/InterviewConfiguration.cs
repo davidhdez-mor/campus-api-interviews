@@ -21,6 +21,10 @@ namespace InterviewAPI.Persistence.EntityConfiguration
                 .HasColumnType("nvarchar")
                 .HasMaxLength(255);
 
+            builder.HasOne(interview => interview.Interviewee)
+                .WithMany()
+                .OnDelete(DeleteBehavior.Cascade);
+
             builder.HasMany(interview => interview.Interviewers)
                 .WithMany(interviewer => interviewer.Interviews)
                 .UsingEntity<InterviewInterviewer>(right => right
@@ -33,7 +37,6 @@ namespace InterviewAPI.Persistence.EntityConfiguration
                         .WithMany()
                         .HasForeignKey(p => p.InterviewId)
                         .OnDelete(DeleteBehavior.Cascade));
-            // pivot => pivot.HasKey(p => p.Id));
         }
     }
 }

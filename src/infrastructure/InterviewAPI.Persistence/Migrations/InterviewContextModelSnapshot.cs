@@ -123,7 +123,8 @@ namespace InterviewAPI.Persistence.Migrations
                 {
                     b.HasOne("InterviewAPI.Entities.Models.Interviewee", "Interviewee")
                         .WithMany()
-                        .HasForeignKey("IntervieweeId");
+                        .HasForeignKey("IntervieweeId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Interviewee");
                 });

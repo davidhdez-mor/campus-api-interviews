@@ -57,7 +57,7 @@ namespace InterviewAPI.Persistence.Migrations
                         column: x => x.IntervieweeId,
                         principalTable: "Interviewees",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
