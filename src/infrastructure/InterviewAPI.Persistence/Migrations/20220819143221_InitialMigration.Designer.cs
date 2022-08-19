@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InterviewAPI.Persistence.Migrations
 {
     [DbContext(typeof(InterviewContext))]
-    [Migration("20220818222207_InitialMigration")]
+    [Migration("20220819143221_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

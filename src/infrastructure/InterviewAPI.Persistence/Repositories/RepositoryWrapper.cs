@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
+using InterviewAPI.Persistence.Abstractions;
 using InterviewAPI.Persistence.Context;
-using InterviewAPI.Persistence.Repositories.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace InterviewAPI.Persistence.Repositories
@@ -11,10 +11,6 @@ namespace InterviewAPI.Persistence.Repositories
     {
         private readonly InterviewContext _interviewContext;
         private readonly IServiceProvider _serviceProvider;
-        
-        // private IInterviewRepository _interview;
-        // private IIntervieweeRepository _interviewee;
-        // private IInterviewerRepository _interviewer;
 
         public IInterviewRepository Interview => _serviceProvider.GetService<IInterviewRepository>();
 

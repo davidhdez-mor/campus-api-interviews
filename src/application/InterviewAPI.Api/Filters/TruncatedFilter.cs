@@ -1,8 +1,6 @@
 using System;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace InterviewAPI.Api.Filters
@@ -13,13 +11,8 @@ namespace InterviewAPI.Api.Filters
         {
             
             await next();
-            string body = await new StreamReader(context.HttpContext.Request.Body).ReadToEndAsync();
+            var body = await new StreamReader(context.HttpContext.Request.Body).ReadToEndAsync();
             Console.WriteLine(body);
-        }
-
-        private bool IsAValidString(string text)
-        {
-            return text.Length < 255;
         }
     }
 }

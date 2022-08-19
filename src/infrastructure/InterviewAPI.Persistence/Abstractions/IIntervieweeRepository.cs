@@ -1,6 +1,6 @@
 using InterviewAPI.Entities.Models;
 
-namespace InterviewAPI.Persistence.Repositories.Abstractions
+namespace InterviewAPI.Persistence.Abstractions
 {
     public interface IIntervieweeRepository : IRepositoryBase<Interviewee>
     {

@@ -1,7 +1,6 @@
-using InterviewAPI.Entities.Models;
+using InterviewAPI.Persistence.Abstractions;
 using InterviewAPI.Persistence.Context;
 using InterviewAPI.Persistence.Repositories;
-using InterviewAPI.Persistence.Repositories.Abstractions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

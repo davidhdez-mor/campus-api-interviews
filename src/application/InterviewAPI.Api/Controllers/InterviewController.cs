@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using InterviewAPI.Api.Filters;
 using Microsoft.AspNetCore.Mvc;
 using InterviewAPI.Dtos.DTOs;
-using InterviewAPI.Services.Services.Abstractions;
+using InterviewAPI.Services.Abstractions;
 
 namespace InterviewAPI.Api.Controllers
 {
@@ -42,7 +42,6 @@ namespace InterviewAPI.Api.Controllers
             var interview = await _interviewService.CreateInterview(interviewWriteDto);
             
             return Created(Request.Path, interview);
-            // return CreatedAtRoute(nameof(CreateInterview), interview);
         }
 
         [ServiceFilter(typeof(TruncatedFilter))]

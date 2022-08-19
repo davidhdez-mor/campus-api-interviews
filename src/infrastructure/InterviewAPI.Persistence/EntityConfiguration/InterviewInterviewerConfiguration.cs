@@ -8,12 +8,12 @@ namespace InterviewAPI.Persistence.EntityConfiguration
     {
         public void Configure(EntityTypeBuilder<InterviewInterviewer> builder)
         {
-            builder.HasKey(x => new { x.Id });
-            builder.HasOne(e => e.Interviewer)
+            builder.HasKey(pivot => pivot.Id);
+            builder.HasOne(pivot => pivot.Interviewer)
                 .WithMany()
                 .HasForeignKey("InterviewerId");
             
-            builder.HasOne(e => e.Interview)
+            builder.HasOne(pivot => pivot.Interview)
                 .WithMany()
                 .HasForeignKey("InterviewId");
         }

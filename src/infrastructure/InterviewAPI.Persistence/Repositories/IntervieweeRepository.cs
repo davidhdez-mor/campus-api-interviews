@@ -4,8 +4,8 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using InterviewAPI.Entities.Models;
+using InterviewAPI.Persistence.Abstractions;
 using InterviewAPI.Persistence.Context;
-using InterviewAPI.Persistence.Repositories.Abstractions;
 using Microsoft.EntityFrameworkCore;
 
 namespace InterviewAPI.Persistence.Repositories

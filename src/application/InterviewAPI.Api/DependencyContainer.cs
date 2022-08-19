@@ -1,5 +1,4 @@
 using InterviewAPI.Api.Filters;
-using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace InterviewAPI.Api

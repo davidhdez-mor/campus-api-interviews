@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using InterviewAPI.Api.Filters;
 using Microsoft.AspNetCore.Mvc;
 using InterviewAPI.Dtos.DTOs;
-using InterviewAPI.Services.Services.Abstractions;
+using InterviewAPI.Services.Abstractions;
 
 namespace InterviewAPI.Api.Controllers
 {

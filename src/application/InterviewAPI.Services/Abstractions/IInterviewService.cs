@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using InterviewAPI.Dtos.DTOs;
 
-namespace InterviewAPI.Services.Services.Abstractions
+namespace InterviewAPI.Services.Abstractions
 {
     public interface IInterviewService
     {

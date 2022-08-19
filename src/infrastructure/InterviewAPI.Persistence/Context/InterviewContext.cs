@@ -8,7 +8,6 @@ namespace InterviewAPI.Persistence.Context
         public DbSet<Interviewer> Interviewers { get; set; }
         public DbSet<Interviewee> Interviewees { get; set; }
         public DbSet<Interview> Interviews { get; set; }
-        // public DbSet<InterviewInterviewer> InterviewsInterviewers { get; set; }
 
         public InterviewContext(DbContextOptions options) : base(options)
         {

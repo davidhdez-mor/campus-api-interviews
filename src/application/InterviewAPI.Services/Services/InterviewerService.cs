@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using AutoMapper;
 using InterviewAPI.Dtos.DTOs;
 using InterviewAPI.Entities.Models;
-using InterviewAPI.Persistence.Repositories.Abstractions;
-using InterviewAPI.Services.Services.Abstractions;
+using InterviewAPI.Persistence.Abstractions;
+using InterviewAPI.Services.Abstractions;
 
 namespace InterviewAPI.Services.Services
 {

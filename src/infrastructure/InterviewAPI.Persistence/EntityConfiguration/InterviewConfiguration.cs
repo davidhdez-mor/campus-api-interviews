@@ -8,11 +8,22 @@ namespace InterviewAPI.Persistence.EntityConfiguration
     {
         public void Configure(EntityTypeBuilder<Interview> builder)
         {
-            builder.HasMany<Interviewer>(interview => interview.Interviewers)
+            builder.HasKey(interview => interview.Id);
+            
+            builder.Property(interview => interview.Appointment)
+                .IsRequired()
+                .HasColumnType("date");
+            
+            builder.Property(interview => interview.Name)
+                .IsRequired()
+                .HasMaxLength(255);
+            
+            builder.HasMany(interview => interview.Interviewers)
                 .WithMany(interviewer => interviewer.Interviews)
                 .UsingEntity<InterviewInterviewer>(right => right.HasOne(r => r.Interviewer)
                         .WithMany(),
-                    left => left.HasOne(l => l.Interview).WithMany(),
+                    left => left.HasOne(l => l.Interview)
+                        .WithMany(),
                     pivot => pivot.HasKey(p => p.Id));
         }
     }

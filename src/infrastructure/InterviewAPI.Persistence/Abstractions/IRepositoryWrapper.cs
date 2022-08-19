@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace InterviewAPI.Persistence.Repositories.Abstractions
+namespace InterviewAPI.Persistence.Abstractions
 {
     // Can be Unit of work
     public interface IRepositoryWrapper

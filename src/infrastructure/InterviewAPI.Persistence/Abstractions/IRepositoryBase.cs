@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace InterviewAPI.Persistence.Repositories.Abstractions
+namespace InterviewAPI.Persistence.Abstractions
 {
     public interface IRepositoryBase<T>
     {

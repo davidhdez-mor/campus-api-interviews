@@ -1,5 +1,5 @@
+using InterviewAPI.Services.Abstractions;
 using InterviewAPI.Services.Services;
-using InterviewAPI.Services.Services.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace InterviewAPI.Services
