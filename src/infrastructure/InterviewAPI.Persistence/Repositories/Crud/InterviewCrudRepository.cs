@@ -35,19 +35,12 @@ namespace InterviewAPI.Persistence.Repositories.Crud
 
         public override void Create(Interview entity)
         {
-            // InterviewContext.Set<Interview>().Attach(entity);
             InterviewContext.Entry(entity).State = EntityState.Added;
-            // InterviewContext.Entry(entity.Interviewee).State = EntityState.Unchanged;
-            // foreach (var interviewer in entity.Interviewers)
-            // {
-            //     InterviewContext.Entry(interviewer).State = EntityState.Unchanged;
-            // }
         }
 
         public override void Update(Interview entity)
         {
             InterviewContext.Set<Interview>().Update(entity);
-            // InterviewContext.Entry(entity).State = EntityState.Modified;
         }
     }
 }
