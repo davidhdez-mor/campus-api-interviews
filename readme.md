@@ -28,5 +28,5 @@ The API has the next implementations:
             - HTTPPut to update the fields of the interviewe by a given id.
             - HTTPDelete to delete a row of the interviewee table by a given id.
 
-The project uses AutoMapper, DTO's, Repository pattern, Unit of work pattern (wrapper) and services for the controllers to use.
+The project uses AutoMapper, DTO's, IoC, CQRS, Repository pattern, Unit of work pattern (wrapper) and services for the controllers to use.
 
