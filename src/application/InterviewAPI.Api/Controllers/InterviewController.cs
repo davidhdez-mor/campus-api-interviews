@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using InterviewAPI.Dtos.DTOs;
 using InterviewAPI.Services.Abstractions.Commands;
 using InterviewAPI.Services.Abstractions.Queries;
+using Microsoft.AspNetCore.Authorization;
 
 namespace InterviewAPI.Api.Controllers
 {
@@ -15,12 +16,14 @@ namespace InterviewAPI.Api.Controllers
         private readonly IInterviewCommandService _interviewCommandService;
         private readonly IInterviewQueryService _interviewQueryService;
 
-        public InterviewController(IInterviewCommandService interviewCommandService, IInterviewQueryService interviewQueryService)
+        public InterviewController(IInterviewCommandService interviewCommandService,
+            IInterviewQueryService interviewQueryService)
         {
             _interviewCommandService = interviewCommandService;
             _interviewQueryService = interviewQueryService;
         }
 
+        [Authorize(Roles = "admin")]
         [HttpGet]
         public async Task<IActionResult> GetInterviews()
         {
@@ -43,7 +46,7 @@ namespace InterviewAPI.Api.Controllers
         public async Task<IActionResult> CreateInterview(InterviewWriteDto interviewWriteDto)
         {
             var interview = await _interviewCommandService.CreateInterview(interviewWriteDto);
-            
+
             return Created(Request.Path, interview);
         }
 
@@ -70,6 +73,5 @@ namespace InterviewAPI.Api.Controllers
                 return NotFound(ex.Message);
             }
         }
-        
     }
 }

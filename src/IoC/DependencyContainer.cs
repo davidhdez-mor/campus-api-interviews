@@ -11,7 +11,7 @@ namespace IoC
     {
         public static IServiceCollection AddDependencies(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddApi()
+            services.AddApi(configuration)
                 .AddPersistence(configuration)
                 .AddMapping()
                 .AddServices();
