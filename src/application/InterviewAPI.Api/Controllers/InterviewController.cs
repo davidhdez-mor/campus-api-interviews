@@ -23,7 +23,7 @@ namespace InterviewAPI.Api.Controllers
             _interviewQueryService = interviewQueryService;
         }
 
-        [Authorize(Roles = "admin")]
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetInterviews()
         {
@@ -31,6 +31,7 @@ namespace InterviewAPI.Api.Controllers
             return Ok(interviews);
         }
 
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetInterviewsById(int id)
         {
@@ -41,6 +42,7 @@ namespace InterviewAPI.Api.Controllers
             return Ok(interview);
         }
 
+        [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(TruncatedFilter))]
         [HttpPost]
         public async Task<IActionResult> CreateInterview(InterviewWriteDto interviewWriteDto)
@@ -50,6 +52,7 @@ namespace InterviewAPI.Api.Controllers
             return Created(Request.Path, interview);
         }
 
+        [Authorize(Roles = "admin, user")]
         [ServiceFilter(typeof(TruncatedFilter))]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateInterview(int id, InterviewUpdateDto interviewUpdateDto)
@@ -60,6 +63,7 @@ namespace InterviewAPI.Api.Controllers
             return NoContent();
         }
 
+        [Authorize(Roles = "admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteInterview(int id)
         {

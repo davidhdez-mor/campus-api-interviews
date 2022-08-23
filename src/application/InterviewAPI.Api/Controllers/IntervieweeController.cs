@@ -5,9 +5,11 @@ using Microsoft.AspNetCore.Mvc;
 using InterviewAPI.Dtos.DTOs;
 using InterviewAPI.Services.Abstractions.Commands;
 using InterviewAPI.Services.Abstractions.Queries;
+using Microsoft.AspNetCore.Authorization;
 
 namespace InterviewAPI.Api.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/Interviewee")]
     public class IntervieweeController : ControllerBase
@@ -38,6 +40,7 @@ namespace InterviewAPI.Api.Controllers
             return Ok(interviewee);
         }
 
+        [Authorize(Roles = "admin")]
         [ServiceFilter(typeof(TruncatedFilter))]
         [HttpPost]
         public async Task<IActionResult> CreateInterviewee(IntervieweeWriteDto intervieweeWriteDto)
@@ -46,6 +49,7 @@ namespace InterviewAPI.Api.Controllers
             return Created(Request.Path, interviewee);
         }
 
+        [Authorize(Roles = "admin, user")]
         [ServiceFilter(typeof(TruncatedFilter))]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateInterviewee(int id, IntervieweeUpdateDto intervieweeUpdateDto)
@@ -56,6 +60,7 @@ namespace InterviewAPI.Api.Controllers
             return NoContent();
         }
 
+        [Authorize(Roles = "admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteInterviewee(int id)
         {
