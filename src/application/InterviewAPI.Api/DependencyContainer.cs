@@ -13,6 +13,7 @@ namespace InterviewAPI.Api
         {
             services.AddControllers();
             services.AddScoped<TruncatedFilter>();
+            
             services.AddAuthentication(x =>
                 {
                     x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

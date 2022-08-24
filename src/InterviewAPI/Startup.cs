@@ -18,11 +18,20 @@ namespace InterviewAPI
             Configuration = configuration;
         }
 
+        public string PolicyName = "frontend";
+
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(cors => 
+                cors.AddPolicy(PolicyName,
+                    builder =>
+                        builder.AllowAnyOrigin()
+                            .AllowAnyHeader()
+                            .AllowAnyMethod())
+                );
             services.AddDependencies(Configuration);
         }
 
@@ -39,8 +48,9 @@ namespace InterviewAPI
                 context.Request.EnableBuffering();
                 await next();
             });
+            app.UseCors(PolicyName);
 
-            app.UseHttpsRedirection();
+            // app.UseHttpsRedirection();
 
             app.UseRouting();
 
