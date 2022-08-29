@@ -1,13 +1,10 @@
-using System.Text;
 using IoC;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.IdentityModel.Tokens;
 
 namespace InterviewAPI
 {
@@ -18,15 +15,13 @@ namespace InterviewAPI
             Configuration = configuration;
         }
 
-        public string PolicyName = "frontend";
-
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors(cors => 
-                cors.AddPolicy(PolicyName,
+                cors.AddPolicy("FrontEnd",
                     builder =>
                         builder.AllowAnyOrigin()
                             .AllowAnyHeader()
@@ -48,7 +43,8 @@ namespace InterviewAPI
                 context.Request.EnableBuffering();
                 await next();
             });
-            app.UseCors(PolicyName);
+            
+            app.UseCors("FrontEnd");
 
             // app.UseHttpsRedirection();
 

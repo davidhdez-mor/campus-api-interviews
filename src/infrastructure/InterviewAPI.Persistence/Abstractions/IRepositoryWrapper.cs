@@ -3,7 +3,6 @@ using InterviewAPI.Persistence.Abstractions.Crud;
 
 namespace InterviewAPI.Persistence.Abstractions
 {
-    // Can be Unit of work
     public interface IRepositoryWrapper
     {
         IInterviewCrudRepository InterviewRepository { get; }

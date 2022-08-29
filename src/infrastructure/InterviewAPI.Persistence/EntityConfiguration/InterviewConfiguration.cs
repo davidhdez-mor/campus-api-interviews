@@ -27,7 +27,8 @@ namespace InterviewAPI.Persistence.EntityConfiguration
 
             builder.HasMany(interview => interview.Interviewers)
                 .WithMany(interviewer => interviewer.Interviews)
-                .UsingEntity<InterviewInterviewer>(right => right
+                .UsingEntity<InterviewInterviewer>(
+                    right => right
                         .HasOne(pivot => pivot.Interviewer)
                         .WithMany()
                         .HasForeignKey(p => p.InterviewerId)

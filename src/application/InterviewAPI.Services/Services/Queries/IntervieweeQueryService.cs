@@ -8,35 +8,35 @@ using InterviewAPI.Services.Abstractions.Queries;
 
 namespace InterviewAPI.Services.Services.Queries
 {
-    public class IntervieweeQueryService : IIntervieweeQueryService
-    {
-        private readonly IReadOnlyWrapper _repoWrapper;
-        private readonly IMapper _mapper;
+	public class IntervieweeQueryService : IIntervieweeQueryService
+	{
+		private readonly IReadOnlyWrapper _repoWrapper;
+		private readonly IMapper _mapper;
 
-        public IntervieweeQueryService(IReadOnlyWrapper wrapper, IMapper mapper)
-        {
-            _repoWrapper = wrapper;
-            _mapper = mapper;
-        }
-        
-        public async Task<IEnumerable<IntervieweeReadDto>> GetInterviewees()
-        {
-            var interviewees = await _repoWrapper.IntervieweeReadOnlyRepository.GetAll();
-            var mapInterviewees = _mapper.Map<List<IntervieweeReadDto>>(interviewees);
+		public IntervieweeQueryService(IReadOnlyWrapper wrapper, IMapper mapper)
+		{
+			_repoWrapper = wrapper;
+			_mapper = mapper;
+		}
 
-            return mapInterviewees;
-        }
+		public async Task<IEnumerable<IntervieweeReadDto>> GetInterviewees()
+		{
+			var interviewees = await _repoWrapper.IntervieweeReadOnlyRepository.GetAll();
+			var mapInterviewees = _mapper.Map<List<IntervieweeReadDto>>(interviewees);
 
-        public async Task<IntervieweeReadDto> GetIntervieweeById(int id)
-        {
-            var interviewee = await
-                _repoWrapper
-                    .IntervieweeReadOnlyRepository
-                    .GetByCondition(i => i.Id.Equals(id));
+			return mapInterviewees;
+		}
 
-            var mapInterviewee = _mapper.Map<List<IntervieweeReadDto>>(interviewee);
+		public async Task<IntervieweeReadDto> GetIntervieweeById(int id)
+		{
+			var interviewee = await
+				_repoWrapper
+					.IntervieweeReadOnlyRepository
+					.GetByCondition(i => i.Id.Equals(id));
 
-            return mapInterviewee.Count > 0 ? mapInterviewee.FirstOrDefault() : null;
-        }
-    }
+			var mapInterviewee = _mapper.Map<List<IntervieweeReadDto>>(interviewee);
+
+			return mapInterviewee.Count > 0 ? mapInterviewee.FirstOrDefault() : null;
+		}
+	}
 }

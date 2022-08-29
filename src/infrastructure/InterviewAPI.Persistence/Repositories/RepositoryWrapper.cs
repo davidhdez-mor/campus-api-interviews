@@ -17,16 +17,15 @@ namespace InterviewAPI.Persistence.Repositories
         public IIntervieweeCrudRepository IntervieweeRepository => _serviceProvider.GetService<IIntervieweeCrudRepository>();
         public IInterviewerCrudRepository InterviewerRepository => _serviceProvider.GetService<IInterviewerCrudRepository>();
 
-
-        public async Task Save()
-        {
-            await _interviewContext.SaveChangesAsync();
-        }
-
         public RepositoryWrapper(InterviewContext interviewContext, IServiceProvider serviceProvider)
         {
             _serviceProvider = serviceProvider;
             _interviewContext = interviewContext;
+        }
+        
+        public async Task Save()
+        {
+            await _interviewContext.SaveChangesAsync();
         }
 
     }
