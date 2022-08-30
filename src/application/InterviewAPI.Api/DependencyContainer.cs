@@ -1,6 +1,8 @@
 using System.Text;
 using InterviewAPI.Api.Filters;
+using InterviewAPI.Api.Middlewares;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -35,6 +37,12 @@ namespace InterviewAPI.Api
                     };
                 });
             return services;
+        }
+        
+        public static IApplicationBuilder UseGlobalExceptionHandler(this IApplicationBuilder app)
+        {
+            app.UseMiddleware<ExceptionMiddleware>();
+            return app;
         }
     }
 }

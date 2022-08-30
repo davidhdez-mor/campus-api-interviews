@@ -38,6 +38,8 @@ namespace InterviewAPI
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCustomMiddlewares();
+
             app.Use(async (context, next) =>
             {
                 context.Request.EnableBuffering();

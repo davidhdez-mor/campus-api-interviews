@@ -1,11 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <ItemGroup>
-        <ProjectReference Include="..\InterviewAPI.Services\InterviewAPI.Services.csproj"/>
+        <ProjectReference Include="..\InterviewAPI.Services\InterviewAPI.Services.csproj" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3"/>
-        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.17"/>
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.17" />
     </ItemGroup>
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
